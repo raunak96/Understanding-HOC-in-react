@@ -1,28 +1,16 @@
-import React from 'react';
+import React from "react";
+import withData from "../../HOC/with-data";
 
-export default class UserList extends React.Component {
-    state={
-        users: []
-    }
-    async componentDidMount() {
-        let result = await fetch("https://jsonplaceholder.typicode.com/users");
-        result = await result.json();
-        this.setState({ users: result.slice(0, 3) });
-    }
-
-    render() {
-        return (
-            <div className="container user-list">
-                <h1>Users List</h1>
-                {
-                    this.state.users.map(user => (
-                        <div key={user.id} className="user">
-                            <h1>{user.name}</h1>
-                            <h2>{user.email}</h2>
-                        </div> 
-                    ))
-                }
+const UserList = ({data}) => (
+    <div className="container user-list">
+        <h1>Users List</h1>
+        {data.map((user) => (
+            <div key={user.id} className="user">
+                <h1>{user.name}</h1>
+                <h2>{user.email}</h2>
             </div>
-        )
-    }
-}
+        ))}
+    </div>
+);
+
+export default withData(UserList);
